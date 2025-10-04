@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     static void main() {
         int flag = 0, contEstudiantes = 0, edad = 0;
-        double notaMedia = 0;
+        double notaMedia = 0, suma = 0, mediaTotal = 0;
         String nombre = "";
         boolean esMatriculado = false, encontrado = false;
         ArrayList<Estudiante> listaEstudiantes = new ArrayList<>();
@@ -49,9 +49,20 @@ public class Main {
                     }
                     if (!encontrado)
                         System.out.println("\n>> Estudiante no encontrado\n");
+                    break;
+                case 4:
+                    if (!listaEstudiantes.isEmpty()) {
+                        for (Estudiante estudiante : listaEstudiantes) {
+                            suma += estudiante.getNotaMedia();
+                        }
+                        mediaTotal = suma/listaEstudiantes.size();
+                            System.out.printf("%n> La media total de %s estudiante/es es: %s%n%n",listaEstudiantes.size(),mediaTotal);
+                    } else
+                        System.out.println("\n>> La lista está vacía\n");
+                    break;
             }
         } while (flag != 6);
-        System.out.println("Adiós");
+        System.out.println("> Adiós");
     }
     public static class Menu {
         public static void verMenu() {
