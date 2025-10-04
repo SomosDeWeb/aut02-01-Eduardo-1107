@@ -5,6 +5,12 @@ public class Estudiante {
     private boolean esMatriculado;
 
     public Estudiante() { }
+    public Estudiante(String nombre, int edad, double notaMedia, boolean esMatriculado) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.notaMedia = notaMedia;
+        this.esMatriculado = esMatriculado;
+    }
 
      public String getNombre() {
         return this.nombre;
