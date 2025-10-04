@@ -6,10 +6,10 @@ public class Estudiante {
 
     public Estudiante() { }
     public Estudiante(String nombre, int edad, double notaMedia, boolean esMatriculado) {
-        this.nombre = nombre;
-        this.edad = edad;
-        this.notaMedia = notaMedia;
-        this.esMatriculado = esMatriculado;
+        setNombre(nombre);
+        setEdad(edad);
+        setNotaMedia(notaMedia);
+        setEsMatriculado(esMatriculado);
     }
 
      public String getNombre() {

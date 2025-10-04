@@ -1,3 +1,4 @@
+import javax.print.attribute.standard.RequestingUserName;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,16 +8,32 @@ public class Main {
         double notaMedia = 0;
         String nombre = "";
         boolean esMatriculado = false;
-
-
         ArrayList<Estudiante> listaEstudiantes = new ArrayList<>();
         do {
             Menu.verMenu();
+            flag = Funciones.pedirNumeroInt("Elige una opcion: ");
             switch (flag) {
                 case 1:
-                    nombre = Funciones.pedirTexto("Introduce nombre: ");
+                    nombre = Funciones.pedirTexto("\nIntroduce nombre: ");
+                    do {
+                        edad = Funciones.pedirNumeroInt("Introduce edad: ");
+                        if (edad <= 0)
+                            System.out.println("Edad no puede ser igual o inferior a 0. Vuelve a intentarlo");
+                    } while (edad <= 0);
+                    notaMedia = Funciones.pedirNumeroDouble("Introduce nota media: ");
+                    esMatriculado = Funciones.pedirBoolean("¿Está matriculado? (true/false): ");
+                    listaEstudiantes.add(new Estudiante(nombre,edad,notaMedia,esMatriculado));
+                    System.out.println("Estudiante añadido correctamente\n");
+                    break;
+                case 2:
+                    System.out.println("=== Lista de Estudiantes ===");
+                    for (Estudiante estudiante : listaEstudiantes) {
+                        System.out.printf("Nombre: %s (%s años) - Nota Media: %s - Matriculado: %s%n",estudiante.getNombre(),estudiante.getEdad(),estudiante.getNotaMedia(),estudiante.getEsMatriculado());
+                    }
+                    break;
             }
         } while (flag != 6);
+        System.out.println("Adiós");
     }
     public static class Menu {
         public static void verMenu() {
@@ -56,7 +73,7 @@ public class Main {
 
             while (!valido) {
                 System.out.print(msg);
-                if (sc.hasNextDouble()) { // boolean que señala si el sc contiene un int o no
+                if (sc.hasNextDouble()) { // boolean que señala si el sc contiene un double o no
                     num = sc.nextDouble();
                     valido = true;
                 } else {
@@ -65,6 +82,26 @@ public class Main {
                 }
             }
             return num;
+        }
+        public static boolean pedirBoolean(String msg) {
+            Scanner sc = new Scanner(System.in);
+            String respuesta = "";
+            boolean valido = false, b = false;
+
+            while (!valido) {
+                System.out.print(msg);
+                    respuesta = sc.nextLine();
+                if (respuesta.equalsIgnoreCase("true")) { // no es Case Sensitive
+                    valido = true;
+                    b = true;
+                } else if (respuesta.equalsIgnoreCase("false")) {
+                    valido = true;
+                } else {
+                    System.out.println("Entrada no válida. Intenta de nuevo.");
+                    sc.next();
+                }
+            }
+            return b;
         }
         public static String pedirTexto(String msg) {
             Scanner sc = new Scanner(System.in);
