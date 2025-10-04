@@ -26,11 +26,17 @@ public class Main {
                     System.out.println("Estudiante añadido correctamente\n");
                     break;
                 case 2:
-                    System.out.println("=== Lista de Estudiantes ===");
-                    for (Estudiante estudiante : listaEstudiantes) {
-                        System.out.printf("Nombre: %s (%s años) - Nota Media: %s - Matriculado: %s%n",estudiante.getNombre(),estudiante.getEdad(),estudiante.getNotaMedia(),estudiante.getEsMatriculado());
-                    }
+                    System.out.println("\n=== Lista de Estudiantes ===");
+                    if (listaEstudiantes.isEmpty())
+                        System.out.println(">> No hay nigún alumno en la lista");
+                    else
+                        for (Estudiante estudiante : listaEstudiantes) {
+                            System.out.printf("Nombre: %s (%s años) - Nota Media: %s - Matriculado: %s%n",estudiante.getNombre(),estudiante.getEdad(),estudiante.getNotaMedia(),estudiante.getEsMatriculado());
+                        }
+                    System.out.printf("%n");
                     break;
+                case 3:
+
             }
         } while (flag != 6);
         System.out.println("Adiós");
