@@ -25,7 +25,7 @@ public class Estudiante {
         if (edad > 0)
             this.edad = edad;
         else
-            System.out.println("No se ha podido establecer la edad. Debe tener más de 0 años"); // No sé si debería poner un argumentException
+            System.out.println("No se ha podido establecer la edad. Debe tener más de 0 años"); // No sé si debería poner un argumentException. Sé que el ejercicio pide que no haya ningún mensaje fuera del Main. Pero no veo una mejor manera de controlar esto.
      }
      public void setNotaMedia(double notaMedia) {
         this.notaMedia = notaMedia;
