@@ -5,15 +5,19 @@ import java.util.Scanner;
 public class Main {
     static void main() {
         int flag = 0, contEstudiantes = 0, edad = 0;
-        double notaMedia = 0, suma = 0, mediaTotal = 0;
+        double notaMedia = 0, suma = 0, mediaTotal = 0, mejorCalificacion = Double.MIN_VALUE;
         String nombre = "";
-        boolean esMatriculado = false, encontrado = false;
+        boolean esMatriculado = false, encontrado;
         ArrayList<Estudiante> listaEstudiantes = new ArrayList<>();
+
         do {
             Menu.verMenu();
             flag = Funciones.pedirNumeroInt("Elige una opcion: ");
+
             switch (flag) {
+
                 case 1:
+
                     nombre = Funciones.pedirTexto("\nIntroduce nombre: ");
                     do {
                         edad = Funciones.pedirNumeroInt("Introduce edad: ");
@@ -23,9 +27,11 @@ public class Main {
                     notaMedia = Funciones.pedirNumeroDouble("Introduce nota media: ");
                     esMatriculado = Funciones.pedirBoolean("¿Está matriculado? (true/false): ");
                     listaEstudiantes.add(new Estudiante(nombre,edad,notaMedia,esMatriculado));
-                    System.out.println("> Estudiante añadido correctamente\n");
+                    System.out.println("\n> Estudiante añadido correctamente\n");
                     break;
+
                 case 2:
+
                     System.out.println("\n=== Lista de Estudiantes ===");
                     if (listaEstudiantes.isEmpty())
                         System.out.println(">> No hay nigún alumno en la lista");
@@ -35,28 +41,52 @@ public class Main {
                         }
                     System.out.printf("%n");
                     break;
+
                 case 3:
-                    nombre = Funciones.pedirTexto("\nIntroduce nombre: ");
-                    for (Estudiante estudiante : listaEstudiantes) {
-                        if (estudiante.getNombre().equalsIgnoreCase(nombre)) {
-                            System.out.printf("Estudiante encontrado%n" +
-                                    "> Nombre: %s%n" +
-                                    "> Edad: %s%n" +
-                                    "> Nota Media: %s%n" +
-                                    "> Matriculado: %s%n%n", estudiante.getNombre(),estudiante.getEdad(),estudiante.getNotaMedia(), estudiante.getEsMatriculado());
-                            encontrado = true;
+                    encontrado = false;
+                    if (!listaEstudiantes.isEmpty()) {
+                        nombre = Funciones.pedirTexto("\nIntroduce nombre: ");
+                        for (Estudiante estudiante : listaEstudiantes) {
+                            if (estudiante.getNombre().equalsIgnoreCase(nombre)) {
+                                System.out.printf("%nEstudiante encontrado%n" +
+                                        "> Nombre: %s%n" +
+                                        "> Edad: %s%n" +
+                                        "> Nota Media: %s%n" +
+                                        "> Matriculado: %s%n%n", estudiante.getNombre(),estudiante.getEdad(),estudiante.getNotaMedia(), estudiante.getEsMatriculado());
+                                encontrado = true;
+                            }
                         }
-                    }
-                    if (!encontrado)
-                        System.out.println("\n>> Estudiante no encontrado\n");
+                        if (!encontrado)
+                            System.out.println("\n>> Estudiante no encontrado\n");
+                    } else
+                        System.out.println("\n>> La lista está vacía\n");
                     break;
+
                 case 4:
+
                     if (!listaEstudiantes.isEmpty()) {
                         for (Estudiante estudiante : listaEstudiantes) {
                             suma += estudiante.getNotaMedia();
                         }
                         mediaTotal = suma/listaEstudiantes.size();
-                            System.out.printf("%n> La media total de %s estudiante/es es: %s%n%n",listaEstudiantes.size(),mediaTotal);
+                            System.out.printf("%n> La media total de %s estudiante/es es: %.2f%n%n",listaEstudiantes.size(),mediaTotal);
+                    } else
+                        System.out.println("\n>> La lista está vacía\n");
+                    break;
+
+                case 5:
+                    if (!listaEstudiantes.isEmpty()) {
+                        for (Estudiante estudiante : listaEstudiantes)
+                            if (estudiante.getNotaMedia() > mejorCalificacion)
+                                mejorCalificacion = estudiante.getNotaMedia();
+                        for (Estudiante estudiante : listaEstudiantes) {
+                            if (estudiante.getNotaMedia() == mejorCalificacion)
+                                System.out.printf("%nEstudiante con mejor calificación%n" +
+                                        "> Nombre: %s%n" +
+                                        "> Edad: %s%n" +
+                                        "> Nota Media: %s%n" +
+                                        "> Matriculado: %s%n%n", estudiante.getNombre(),estudiante.getEdad(),estudiante.getNotaMedia(), estudiante.getEsMatriculado());
+                        }
                     } else
                         System.out.println("\n>> La lista está vacía\n");
                     break;
@@ -127,7 +157,6 @@ public class Main {
                     valido = true;
                 } else {
                     System.out.println("Entrada no válida. Intenta de nuevo.");
-                    sc.next();
                 }
             }
             return b;
