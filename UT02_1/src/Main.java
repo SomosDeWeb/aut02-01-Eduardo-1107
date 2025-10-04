@@ -7,7 +7,7 @@ public class Main {
         int flag = 0, contEstudiantes = 0, edad = 0;
         double notaMedia = 0;
         String nombre = "";
-        boolean esMatriculado = false;
+        boolean esMatriculado = false, encontrado = false;
         ArrayList<Estudiante> listaEstudiantes = new ArrayList<>();
         do {
             Menu.verMenu();
@@ -18,12 +18,12 @@ public class Main {
                     do {
                         edad = Funciones.pedirNumeroInt("Introduce edad: ");
                         if (edad <= 0)
-                            System.out.println("Edad no puede ser igual o inferior a 0. Vuelve a intentarlo");
+                            System.out.println(">> Edad no puede ser igual o inferior a 0. Vuelve a intentarlo");
                     } while (edad <= 0);
                     notaMedia = Funciones.pedirNumeroDouble("Introduce nota media: ");
                     esMatriculado = Funciones.pedirBoolean("¿Está matriculado? (true/false): ");
                     listaEstudiantes.add(new Estudiante(nombre,edad,notaMedia,esMatriculado));
-                    System.out.println("Estudiante añadido correctamente\n");
+                    System.out.println("> Estudiante añadido correctamente\n");
                     break;
                 case 2:
                     System.out.println("\n=== Lista de Estudiantes ===");
@@ -36,7 +36,19 @@ public class Main {
                     System.out.printf("%n");
                     break;
                 case 3:
-
+                    nombre = Funciones.pedirTexto("\nIntroduce nombre: ");
+                    for (Estudiante estudiante : listaEstudiantes) {
+                        if (estudiante.getNombre().equalsIgnoreCase(nombre)) {
+                            System.out.printf("Estudiante encontrado%n" +
+                                    "> Nombre: %s%n" +
+                                    "> Edad: %s%n" +
+                                    "> Nota Media: %s%n" +
+                                    "> Matriculado: %s%n%n", estudiante.getNombre(),estudiante.getEdad(),estudiante.getNotaMedia(), estudiante.getEsMatriculado());
+                            encontrado = true;
+                        }
+                    }
+                    if (!encontrado)
+                        System.out.println("\n>> Estudiante no encontrado\n");
             }
         } while (flag != 6);
         System.out.println("Adiós");
