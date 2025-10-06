@@ -4,7 +4,7 @@ import java.util.Scanner;
 // Disclaimer: La nota no la controlo porque no sé que reglas pueden haber. Si la nota es negativa o sobre 100 por ejemplo.
 public class Main {
     static void main() {
-        int flag = 0, contEstudiantes = 0, edad = 0;
+        int flag = 0, edad = 0;
         double notaMedia = 0, suma = 0, mediaTotal = 0, mejorCalificacion = Double.MIN_VALUE;
         String nombre = "";
         boolean esMatriculado = false, encontrado;
@@ -24,7 +24,11 @@ public class Main {
                         if (edad <= 0)
                             System.out.println(">> Edad no puede ser igual o inferior a 0. Vuelve a intentarlo");
                     } while (edad <= 0);
-                    notaMedia = Funciones.pedirNumeroDouble("Introduce nota media: ");
+                    do {
+                        notaMedia = Funciones.pedirNumeroDouble("Introduce Nota Media: ");
+                        if (notaMedia < 0)
+                            System.out.println(">> Nota media no puede ser inferior a 0. Vuelve a intentarlo");
+                    } while (notaMedia < 0);
                     esMatriculado = Funciones.pedirBoolean("¿Está matriculado? (true/false): ");
                     listaEstudiantes.add(new Estudiante(nombre,edad,notaMedia,esMatriculado));
                     System.out.println("\n> Estudiante añadido correctamente\n");
@@ -47,7 +51,7 @@ public class Main {
                     if (!listaEstudiantes.isEmpty()) {
                         nombre = Funciones.pedirTexto("\nIntroduce nombre: ");
                         for (Estudiante estudiante : listaEstudiantes) {
-                            if (estudiante.getNombre().equalsIgnoreCase(nombre)) {
+                            if (estudiante.getNombre().contains(nombre)||estudiante.getNombre().toLowerCase().contains(nombre) || estudiante.getNombre().toUpperCase().contains(nombre)) {
                                 System.out.printf("%nEstudiante encontrado%n" +
                                         "> Nombre: %s%n" +
                                         "> Edad: %s%n" +
@@ -90,9 +94,14 @@ public class Main {
                     } else
                         System.out.println("\n>> La lista está vacía\n");
                     break;
+                case 6:
+                    System.out.println("> Adiós");
+                    break;
+                default:
+                    System.out.println("\n>> Elección fuera de rango\n");
+                    break;
             }
         } while (flag != 6);
-        System.out.println("> Adiós");
     }
     public static class Menu {
         public static void verMenu() {
