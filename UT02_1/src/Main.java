@@ -1,7 +1,7 @@
 import javax.print.attribute.standard.RequestingUserName;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+// Disclaimer: La nota no la controlo porque no sé que reglas pueden haber. Si la nota es negativa o sobre 100 por ejemplo.
 public class Main {
     static void main() {
         int flag = 0, contEstudiantes = 0, edad = 0;
